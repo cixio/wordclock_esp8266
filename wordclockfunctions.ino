@@ -1,5 +1,5 @@
 
-const String clockStringGerman =  "ESPISTAFUNFVIERTELZEHNZWANZIGUVORTECHNICNACHHALBMELFUNFXCONTROLLEREINSEAWZWEIDREITUMVIERSECHSQYACHTSIEBENZWOLFZEHNEUNJUHR";
+const String clockStringGerman =  "ESKISTAFUNFZEHNZWANZIGDREIVIERTELVORTBYPNACHHALBQXEZEHNGTZWOLFDREINEUNVIERELFFUNFOACHTRSZWEINSIEBENSECHSAMJUHR";
 
 /**
  * @brief control the four minute indicator LEDs
@@ -119,7 +119,8 @@ String timeToString(uint8_t hours,uint8_t minutes){
   }
   else if(minutes >= 20 && minutes < 25)
   {
-    message += "ZEHN VOR HALB "; 
+    //message += "ZEHN VOR HALB "; 
+	message += "ZWANZIG NACH ";
   }
   else if(minutes >= 25 && minutes < 30)
   {
@@ -135,7 +136,8 @@ String timeToString(uint8_t hours,uint8_t minutes){
   }
   else if(minutes >= 40 && minutes < 45)
   {
-    message += "ZEHN NACH HALB ";
+    //message += "ZEHN NACH HALB ";
+	message += "ZWANZIG VOR ";
   }
   else if(minutes >= 45 && minutes < 50)
   {
@@ -155,7 +157,8 @@ String timeToString(uint8_t hours,uint8_t minutes){
   {
       hours -= 12;
   }
-  if(minutes >= 20)
+  //if(minutes >= 20)
+  if(minutes >= 25)
   {
       hours++;
   }
@@ -211,7 +214,7 @@ String timeToString(uint8_t hours,uint8_t minutes){
   }
   if(minutes < 5)
   {
-    message += "UHR ";
+    message += "UHR";
   }
 
   Serial.println(message);
