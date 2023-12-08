@@ -60,7 +60,7 @@
 
 
 #define NEOPIXELPIN 2       // pin to which the NeoPixels are attached
-#define NUMPIXELS 114       // number of pixels attached to Attiny85
+#define NUMPIXELS 125       // number of pixels attached to Attiny85
 #define BUTTONPIN 14        // pin to which the button is attached
 #define LEFT 1
 #define RIGHT 2
@@ -95,7 +95,7 @@ enum direction {right, left, up, down};
 // width of the led matrix
 #define WIDTH 11
 // height of the led matrix
-#define HEIGHT 10
+#define HEIGHT 11
 
 // own datatype for state machine states
 #define NUM_STATES 6
@@ -206,17 +206,18 @@ int nightModeEndMin = 0;
 int watchdogCounter = 30;
 
 uint16_t myRemapFn(uint16_t x, uint16_t y) {
-  if (y == 0) { return 103+x; }
-  else if (y == 1) { return 102-x; }
-  else if (y == 2) { return 81+x; }
-  else if (y == 3) { return 80-x; }
-  else if (y == 4) { return 59+x; }
-  else if (y == 5) { return 58-x; }
-  else if (y == 6) { return 37+x; }
-  else if (y == 7) { return 36-x; }
-  else if (y == 8) { return 15+x; }
-  else if (y == 9) { return 14-x; }
-  else if (y == 10 && x <=3) { return x; }
+  if (y == 0) { return 124-x; }
+  else if (y == 1) { return 103+x; }
+  else if (y == 2) { return 102-x; }
+  else if (y == 3) { return 81+x; }
+  else if (y == 4) { return 80-x; }
+  else if (y == 5) { return 59+x; }
+  else if (y == 6) { return 58-x; }
+  else if (y == 7) { return 37+x; }
+  else if (y == 8) { return 36-x; }
+  else if (y == 9) { return 15+x; }
+  else if (y == 10) { return 14-x; }
+  else if (y == 11 && x <=3) { return x; }
   else { return -1; }
 }
 
@@ -376,9 +377,9 @@ void setup() {
     uint8_t address = WiFi.localIP()[3];
     ledmatrix.printChar(1, 0, 'I', maincolor_clock);
     ledmatrix.printChar(5, 0, 'P', maincolor_clock);
-    ledmatrix.printNumber(0, 5, (address/100), maincolor_clock);
-    ledmatrix.printNumber(4, 5, (address/10)%10, maincolor_clock);
-    ledmatrix.printNumber(8, 5, address%10, maincolor_clock);
+    ledmatrix.printNumber(0, 6, (address/100), maincolor_clock);
+    ledmatrix.printNumber(4, 6, (address/10)%10, maincolor_clock);
+    ledmatrix.printNumber(8, 6, address%10, maincolor_clock);
     ledmatrix.drawOnMatrixInstant();
     delay(2000);
 
