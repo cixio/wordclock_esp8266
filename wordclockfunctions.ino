@@ -1,5 +1,5 @@
 
-const String clockStringGerman =  "xxxxxxxxxxxESKISTAFUNFZEHNZWANZIGDREIVIERTELVORTBYPNACHHALBQXEZEHNGTZWOLFDREINEUNVIERELFFUNFOACHTRSZWEINSIEBENSECHSAMJUHR";
+const String clockStringGerman =  "ESKISTAFUNFZEHNZWANZIGNULLVIERTELPWORDCLOCKDVORTBYPNACHHALBQXEZEHNGTZWOLFDREINEUNVIERELFFUNFOACHTRSZWEINSIEBENSECHSAMJUHR";
 
 /**
  * @brief control the four minute indicator LEDs
@@ -162,16 +162,12 @@ String timeToString(uint8_t hours,uint8_t minutes){
   {
       hours++;
   }
-  if(hours == 12)
-  {
-      hours = 0;
-  }
 
   // show hours
   switch(hours)
   {
   case 0:
-    message += "ZWOLF ";
+    message += "NULL ";
     break;
   case 1:
     message += "EIN";
@@ -211,6 +207,9 @@ String timeToString(uint8_t hours,uint8_t minutes){
   case 11:
     message += "ELF ";
     break;
+  case 12:
+	message += "ZWOLF ";
+	break;
   }
   if(minutes < 5)
   {
