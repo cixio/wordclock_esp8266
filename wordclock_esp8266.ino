@@ -373,6 +373,14 @@ void setup() {
     matrix.show();
     delay(200);
 
+    // showing wordclock, red, backwards :)
+    for(int c = 9; c > 0; c--){
+        matrix.drawPixel(c, 3, LEDMatrix::color24to16bit(colors24bit[1]));
+        matrix.show();
+        delay(30); 
+    }
+    delay(1000);
+    
     // display IP
     uint8_t address = WiFi.localIP()[3];
     ledmatrix.printChar(1, 0, 'I', maincolor_clock);
