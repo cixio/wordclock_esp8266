@@ -63,6 +63,8 @@ int showStringOnClock(String message, uint32_t color){
       if(word.length() > 0){
         // find word in clock string
         positionOfWord = clockStringGerman.indexOf(word, lastLetterClock);
+
+        if (word == "EIN") { positionOfWord = clockStringGerman.lastIndexOf(word); }
         
         if(positionOfWord >= 0){
           // word found on clock -> enable leds in targetgrid
