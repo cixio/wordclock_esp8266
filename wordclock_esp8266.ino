@@ -373,9 +373,9 @@ void setup() {
     matrix.show();
     delay(200);
 
-    // showing wordclock, red, backwards :)
+    // showing wordclock, colorful, backwards :)
     for(int c = 9; c > 0; c--){
-        matrix.drawPixel(c, 3, LEDMatrix::color24to16bit(colors24bit[1]));
+        matrix.drawPixel(c, 3, LEDMatrix::color24to16bit(colors24bit[random(NUM_COLORS)]));
         matrix.show();
         delay(30); 
     }
