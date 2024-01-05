@@ -154,19 +154,17 @@ String timeToString(uint8_t hours,uint8_t minutes){
     message += "FUNF VOR ";
   }
 
-  //convert hours to 12h format
-  if(hours >= 12)
-  {
-      hours -= 12;
-  }
-  //if(minutes >= 20)
   if(minutes >= 25)
   {
-      hours++;
+    hours++;
   }
-  if(hours == 12)
+
+  if(hours > 12)
   {
-      hours = 0;
+    hours -= 12;
+  }
+  if (hours == 0) {
+    hours = 12;
   }
 
   // show hours
