@@ -7,10 +7,20 @@ More details on my website: https://techniccontroller.com/word-clock-with-wifi-a
 
 **Languages**
 
-The Wordclock is available in **German**, **English** and **Italian** language. By default the language is German. 
-To use the English or Italian language please replace the file *wordclockfunctions.ino* with *wordclockfunctions.ino_english* or *wordclockfunctions.ino_italian*.
+The Wordclock is available in **German**, **English**, **Italian**, **French** and **Javanese** language. By default the language is German. 
+To use other languages like English or Italian please replace the file *wordclockfunctions.ino* with *wordclockfunctions.ino_english* or *wordclockfunctions.ino_italian*.
 The code compiles only with one file named *wordclockfunctions.ino*. So please rename the file you want to use to *wordclockfunctions.ino* and replace the existing file.
 
+Thank you to everyone who provided feedback on adding new languages and testing their accuracy — your efforts have been invaluable in making this project truly inclusive and reliable!
+
+**Special Branches**
+
+We've got some interesting branches in this repo inspired by user feedback. These branches explore unique features and experimental ideas. Some will stay updated with the main branch's features.
+
+- [**hour_animation**](https://github.com/techniccontroller/wordclock_esp8266/tree/hour_animation): This branch replaces the spiral animation with some custom pattern animation defined as x/y coordinate pattern including custom color for each letter. Also, this animation is show ones per hour.
+- [**mode_seconds**](https://github.com/techniccontroller/wordclock_esp8266/tree/mode_seconds): This branch adds one additional mode to show the seconds as numbers on the clock. Thanks to [@Bram](https://github.com/BramWerbrouck)
+- [**rgbw_leds**](https://github.com/techniccontroller/wordclock_esp8266/tree/rgbw_leds): This branch uses RGBW LEDs instead of RGB LEDs.
+- [**static_background_pattern**](https://github.com/techniccontroller/wordclock_esp8266/tree/static_background_pattern): This branch allows to light up specific letters always during clock mode. E.G., to display some special words in another color.
 
 ## Features
 - 6 modes (Clock, Digital Clock, SPIRAL animation, TETRIS, SNAKE, PONG)
@@ -24,6 +34,7 @@ The code compiles only with one file named *wordclockfunctions.ino*. So please r
 - webserver interface for configuration and control
 - physical button to change mode or enable night mode without webserver
 - automatic current limiting of LEDs
+- dynamic color shift mode 
 
 ## Pictures of clock
 ![modes_images2](https://user-images.githubusercontent.com/36072504/156947689-dd90874d-a887-4254-bede-4947152d85c1.png)
@@ -150,7 +161,7 @@ MCAST_IF_IP = '192.168.0.7'
 4. Execute the script with following command: 
 
 ```bash
-python multicastUDP_receiver_analyzer.py
+python multicastUDP_receiver.py
 ```
 
 5. Now you should see the log messages of the word clock (every 5 seconds a heartbeat message and the currently displayed time). 

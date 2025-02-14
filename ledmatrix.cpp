@@ -104,6 +104,9 @@ void LEDMatrix::setupMatrix()
  */
 void LEDMatrix::setMinIndicator(uint8_t pattern, uint32_t color)
 {
+  if(dynamicColorShiftActivePhase >= 0){
+    color = Wheel(dynamicColorShiftActivePhase);
+  }
   // pattern:
   // 15 -> 1111
   // 14 -> 1110
@@ -134,8 +137,11 @@ void LEDMatrix::setMinIndicator(uint8_t pattern, uint32_t color)
  */
 void LEDMatrix::gridAddPixel(uint8_t x, uint8_t y, uint32_t color)
 {
+  if(dynamicColorShiftActivePhase >= 0){
+    color = Wheel((uint16_t(x + y*WIDTH) * 256 * 2 / (WIDTH*HEIGHT) + dynamicColorShiftActivePhase) % 256);
+  }
   // limit ranges of x and y
-  if(x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT){
+  if(x < WIDTH && y < HEIGHT){
     targetgrid[y][x] = color;
   }
   else{
@@ -298,4 +304,14 @@ uint16_t LEDMatrix::calcEstimatedLEDCurrent(uint32_t color){
  */
 void LEDMatrix::setCurrentLimit(uint16_t mycurrentLimit){
   currentLimit = mycurrentLimit;
+}
+
+/**
+ * @brief Set dynamic color shift phase (0-255)
+ * 
+ * @param phase phase of the color shift
+ */
+void LEDMatrix::setDynamicColorShiftPhase(int16_t phase)
+{
+  dynamicColorShiftActivePhase = phase;
 }
