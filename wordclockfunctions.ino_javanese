@@ -1,5 +1,5 @@
 
-const String clockStringEnglish = "ITPISKTENNPQUARTERHALFTWENTYUFIVEMINUTESNATOPASTMEAONEFTWONTHREELRFOUREAWFIVEOSIXZUSEVENEIGHTELEVENUNINETWELVETENAWOCLOCK";
+const String clockStringJava = "JAMASETENGAHTELOROLASIJIPAPATELUENEMPITUWOLULIMOSEPULOHSONGOOSEWELASPASIKURANGPUNJULLIMOSEPRAPATKATESEPULOHIJURONGPULOHATSELAWEMENIT";
 
 /**
  * @brief control the four minute indicator LEDs
@@ -59,7 +59,7 @@ int showStringOnClock(String message, uint32_t color) {
 
     if (word.length() > 0) {
       // find word in clock string
-      positionOfWord = clockStringEnglish.indexOf(word, lastLetterClock);
+      positionOfWord = clockStringJava.indexOf(word, lastLetterClock);
 
       if (positionOfWord >= 0) {
         // word found on clock -> enable leds in targetgrid
@@ -93,95 +93,93 @@ int showStringOnClock(String message, uint32_t color) {
  */
 String timeToString(uint8_t hours, uint8_t minutes) {
 
-  //IT IS
-  String message = "IT IS ";
+  String message = "JAM ";
 
+  hours = hours % 12;
 
-  //show minutes
-  if (minutes >= 5 && minutes < 10) {
-    message += "FIVE MINUTES ";
-  } else if (minutes >= 10 && minutes < 15) {
-    message += "TEN MINUTES ";
-  } else if (minutes >= 15 && minutes < 20) {
-    message += "QUARTER ";
-  } else if (minutes >= 20 && minutes < 25) {
-    message += "TWENTY MINUTES ";
-  } else if (minutes >= 25 && minutes < 30) {
-    message += "TWENTY FIVE MINUTES ";
-  } else if (minutes >= 30 && minutes < 35) {
-    message += "HALF ";
-  } else if (minutes >= 35 && minutes < 40) {
-    message += "TWENTY FIVE MINUTES ";
-  } else if (minutes >= 40 && minutes < 45) {
-    message += "TWENTY MINUTES ";
-  } else if (minutes >= 45 && minutes < 50) {
-    message += "QUARTER ";
-  } else if (minutes >= 50 && minutes < 55) {
-    message += "TEN MINUTES ";
-  } else if (minutes >= 55 && minutes < 60) {
-    message += "FIVE MINUTES ";
-  }
-
-  // Convert hours to 12h format and adjust for "TO" phrases
-  if (hours >= 12) {
-    hours -= 12;
-  }
-
-  // Increment hour for "TO" phrases (minutes 35 or more)
-  if (minutes >= 35) {
+  if (minutes >= 30)
     hours = (hours + 1) % 12;
-    message += "TO ";
-  } else if (minutes >= 5) {
-    message += "PAST ";
-  }
 
-  // Handle edge case for 0 hour (12 AM/PM)
-  if (hours == 0) {
+  if (hours == 0)
     hours = 12;
-  }
+
+  if (minutes >= 30 && minutes < 35)
+    message += "SETENGAH ";
 
   // show hours
   switch (hours) {
     case 1:
-      message += "ONE ";
+      message += "SIJI ";
       break;
     case 2:
-      message += "TWO ";
+      message += "LORO ";
       break;
     case 3:
-      message += "THREE ";
+      message += "TELU ";
       break;
     case 4:
-      message += "FOUR ";
+      message += "PAPAT ";
       break;
     case 5:
-      message += "FIVE ";
+      message += "LIMO ";
       break;
     case 6:
-      message += "SIX ";
+      message += "ENEM ";
       break;
     case 7:
-      message += "SEVEN ";
+      message += "PITU ";
       break;
     case 8:
-      message += "EIGHT ";
+      message += "WOLU ";
       break;
     case 9:
-      message += "NINE ";
+      message += "SONGO ";
       break;
     case 10:
-      message += "TEN ";
+      message += "SEPULOH ";
       break;
     case 11:
-      message += "ELEVEN ";
+      message += "SEWELAS ";
       break;
     case 12:
-      message += "TWELVE ";
+      message += "ROLAS ";
       break;
   }
 
-  if (minutes < 5) {
-    message += "OCLOCK ";
+  if (minutes >= 35) {
+    message += "KURANG ";
+  } else if (minutes >= 5 && minutes < 30) {
+    message += "PUNJUL ";
+  }
+
+  //show minutes
+  if (minutes >= 5 && minutes < 10) {
+    message += "LIMO MENIT ";
+  } else if (minutes >= 10 && minutes < 15) {
+    message += "SEPULOH MENIT ";
+  } else if (minutes >= 15 && minutes < 20) {
+    message += "SEPRAPAT MENIT";
+  } else if (minutes >= 20 && minutes < 25) {
+    message += "RONGPULOH MENIT ";
+  } else if (minutes >= 25 && minutes < 30) {
+    message += "SELAWE MENIT ";
+  } else if (minutes >= 30 && minutes < 35) {
+    // message += "SETENGAH ";
+  } else if (minutes >= 35 && minutes < 40) {
+    message += "SELAWE MENIT ";
+  } else if (minutes >= 40 && minutes < 45) {
+    message += "RONGPULOH MENIT ";
+  } else if (minutes >= 45 && minutes < 50) {
+    message += "SEPRAPAT MENIT ";
+  } else if (minutes >= 50 && minutes < 55) {
+    message += "SEPULOH MENIT ";
+  } else if (minutes >= 55 && minutes < 60) {
+    message += "LIMO MENIT ";
+  }
+
+
+  if (minutes < 5 || (minutes >= 30 && minutes < 35)) {
+    message += "PAS ";
   }
 
   logger.logString("time as String: " + String(message));
