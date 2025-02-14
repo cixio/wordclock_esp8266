@@ -158,8 +158,8 @@ String timeToString(uint8_t hours,uint8_t minutes){
   {
     hours -= 12;
   }
-  if (hours == 12) {
-    hours = 0;
+  if (hours == 0) {
+    hours = 12;
   }
 
   // show hours
