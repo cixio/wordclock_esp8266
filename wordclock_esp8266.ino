@@ -62,7 +62,7 @@
 #define ADR_COLSHIFTSPEED 28
 #define ADR_COLSHIFTACTIVE 29
 
-#define NEOPIXELPIN 2       // pin to which the NeoPixels are attached
+#define NEOPIXELPIN 4       // pin to which the NeoPixels are attached
 #define BUTTONPIN 14        // pin to which the button is attached
 #define LEFT 1
 #define RIGHT 2
