@@ -124,6 +124,8 @@ const String hostname = "wordclock";
 // URL DNS server
 const char WebserverURL[] = "www.wordclock.local";
 
+int utcOffset = 60; // UTC offset in minutes
+
 // ----------------------------------------------------------------------------------
 //                                        GLOBAL VARIABLES
 // ----------------------------------------------------------------------------------
@@ -172,7 +174,7 @@ uint16_t behaviorUpdatePeriod = PERIOD_TIMEVISUUPDATE; // holdes the period in w
 // Create necessary global objects
 UDPLogger logger;
 WiFiUDP NTPUDP;
-NTPClientPlus ntp = NTPClientPlus(NTPUDP, "pool.ntp.org", 1, true);
+NTPClientPlus ntp = NTPClientPlus(NTPUDP, "pool.ntp.org", utcOffset, true);
 LEDMatrix ledmatrix = LEDMatrix(&matrix, brightness, &logger);
 Tetris mytetris = Tetris(&ledmatrix, &logger);
 Snake mysnake = Snake(&ledmatrix, &logger);
@@ -259,6 +261,9 @@ void setup() {
   // set custom ip for portal
   //wifiManager.setAPStaticIPConfig(IPAdress_AccessPoint, Gateway_AccessPoint, Subnetmask_AccessPoint);
 
+  // set a custom hostname
+  wifiManager.setHostname(hostname);
+  
   // fetches ssid and pass from eeprom and tries to connect
   // if it does not connect it starts an access point with the specified name
   // here "wordclockAP"
@@ -355,10 +360,10 @@ void setup() {
   logger.logString("Reset Reason: " + ESP.getResetReason());
 
   // setup NTP
+  updateUTCOffsetFromTimezoneAPI(logger, ntp);
   ntp.setupNTPClient();
   logger.logString("NTP running");
   logger.logString("Time: " +  ntp.getFormattedTime());
-  logger.logString("TimeOffset (seconds): " + String(ntp.getTimeOffset()));
 
   // load persistent variables from EEPROM
   loadMainColorFromEEPROM();
@@ -367,7 +372,7 @@ void setup() {
   loadBrightnessSettingsFromEEPROM();
   loadColorShiftStateFromEEPROM();
   
-  if(!ESP.getResetReason().equals("Software/System restart")){
+  if(ESP.getResetReason().equals("Power On") || ESP.getResetReason().equals("External System")){
     // test quickly each LED
     for(int r = 0; r < HEIGHT+1; r++){
         for(int c = 0; c < WIDTH; c++){
@@ -469,7 +474,6 @@ void loop() {
       logger.logString("Time: " +  ntp.getFormattedTime());
       logger.logString("Date: " +  ntp.getFormattedDate());
       logger.logString("Day of Week (Mon=1, Sun=7): " +  String(ntp.getDayOfWeek()));
-      logger.logString("TimeOffset (seconds): " + String(ntp.getTimeOffset()));
       logger.logString("Summertime: " + String(ntp.updateSWChange()));
       lastNTPUpdate = millis();
       watchdogCounter = 30;
@@ -492,7 +496,6 @@ void loop() {
       logger.logString("Time: " +  ntp.getFormattedTime());
       logger.logString("Date: " +  ntp.getFormattedDate());
       logger.logString("Day of Week (Mon=1, Sun=7): " +  ntp.getDayOfWeek());
-      logger.logString("TimeOffset (seconds): " + String(ntp.getTimeOffset()));
       logger.logString("Summertime: " + String(ntp.updateSWChange()));
       lastNTPUpdate += 10000;
       watchdogCounter--;
